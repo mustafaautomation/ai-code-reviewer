@@ -51,12 +51,10 @@ export function buildReviewPrompt(
   diff: string,
   maxDiffSize: number,
 ): string {
-  const truncatedDiff = diff.length > maxDiffSize
-    ? diff.substring(0, maxDiffSize) + '\n... (truncated)'
-    : diff;
+  const truncatedDiff =
+    diff.length > maxDiffSize ? diff.substring(0, maxDiffSize) + '\n... (truncated)' : diff;
 
-  return REVIEW_PROMPT
-    .replace('{title}', title)
+  return REVIEW_PROMPT.replace('{title}', title)
     .replace('{author}', author)
     .replace('{head}', head)
     .replace('{base}', base)
@@ -107,7 +105,8 @@ export function parseReviewResponse(
 export function formatReviewComment(result: ReviewResult): string {
   const lines: string[] = [];
 
-  const icon = result.verdict === 'approve' ? '✅' : result.verdict === 'request_changes' ? '🔴' : '💬';
+  const icon =
+    result.verdict === 'approve' ? '✅' : result.verdict === 'request_changes' ? '🔴' : '💬';
   lines.push(`## ${icon} AI Code Review`);
   lines.push('');
   lines.push(result.summary);
@@ -140,7 +139,9 @@ export function formatReviewComment(result: ReviewResult): string {
   }
 
   lines.push('---');
-  lines.push(`*Reviewed by AI (${result.model}) · ${result.findings.length} findings · [Quvantic](https://quvantic.com)*`);
+  lines.push(
+    `*Reviewed by AI (${result.model}) · ${result.findings.length} findings · [Quvantic](https://quvantic.com)*`,
+  );
 
   return lines.join('\n');
 }

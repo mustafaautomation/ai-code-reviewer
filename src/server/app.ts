@@ -43,7 +43,13 @@ export function createApp(config: AppConfig): express.Application {
 
       const { text, tokensUsed } = await claude.analyze(prompt);
 
-      const result = parseReviewResponse(text, pr.number, repository.full_name, config.model, tokensUsed);
+      const result = parseReviewResponse(
+        text,
+        pr.number,
+        repository.full_name,
+        config.model,
+        tokensUsed,
+      );
       const comment = formatReviewComment(result);
 
       await github.postReviewComment(owner, repo, pr.number, comment);

@@ -17,7 +17,12 @@ export class GitHubClient {
     return res.text();
   }
 
-  async postReviewComment(owner: string, repo: string, prNumber: number, body: string): Promise<void> {
+  async postReviewComment(
+    owner: string,
+    repo: string,
+    prNumber: number,
+    body: string,
+  ): Promise<void> {
     const res = await fetch(`${this.baseUrl}/repos/${owner}/${repo}/issues/${prNumber}/comments`, {
       method: 'POST',
       headers: {

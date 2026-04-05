@@ -3,7 +3,15 @@ import { buildReviewPrompt, parseReviewResponse, formatReviewComment } from '../
 
 describe('buildReviewPrompt', () => {
   it('should include PR metadata in prompt', () => {
-    const prompt = buildReviewPrompt('Fix login', 'alice', 'feat/login', 'main', 3, '+ new code', 8000);
+    const prompt = buildReviewPrompt(
+      'Fix login',
+      'alice',
+      'feat/login',
+      'main',
+      3,
+      '+ new code',
+      8000,
+    );
     expect(prompt).toContain('Fix login');
     expect(prompt).toContain('alice');
     expect(prompt).toContain('feat/login');
@@ -27,7 +35,15 @@ describe('parseReviewResponse', () => {
   it('should parse valid JSON response', () => {
     const json = JSON.stringify({
       findings: [
-        { severity: 'high', file: 'src/app.ts', line: 10, title: 'Missing null check', description: 'Could NPE', suggestion: 'Add check', category: 'bug' },
+        {
+          severity: 'high',
+          file: 'src/app.ts',
+          line: 10,
+          title: 'Missing null check',
+          description: 'Could NPE',
+          suggestion: 'Add check',
+          category: 'bug',
+        },
       ],
       summary: 'One issue found',
       verdict: 'request_changes',
@@ -77,7 +93,14 @@ describe('formatReviewComment', () => {
       prNumber: 1,
       repo: 'o/r',
       findings: [
-        { severity: 'critical', file: 'a.ts', line: 1, title: 'SQL injection', description: 'Bad', category: 'security' },
+        {
+          severity: 'critical',
+          file: 'a.ts',
+          line: 1,
+          title: 'SQL injection',
+          description: 'Bad',
+          category: 'security',
+        },
       ],
       summary: 'Critical issue',
       verdict: 'request_changes',
@@ -96,9 +119,30 @@ describe('formatReviewComment', () => {
       prNumber: 1,
       repo: 'o/r',
       findings: [
-        { severity: 'critical', file: 'a.ts', line: 1, title: 'A', description: 'D', category: 'bug' },
-        { severity: 'high', file: 'b.ts', line: 2, title: 'B', description: 'D', category: 'security' },
-        { severity: 'medium', file: 'c.ts', line: 3, title: 'C', description: 'D', category: 'quality' },
+        {
+          severity: 'critical',
+          file: 'a.ts',
+          line: 1,
+          title: 'A',
+          description: 'D',
+          category: 'bug',
+        },
+        {
+          severity: 'high',
+          file: 'b.ts',
+          line: 2,
+          title: 'B',
+          description: 'D',
+          category: 'security',
+        },
+        {
+          severity: 'medium',
+          file: 'c.ts',
+          line: 3,
+          title: 'C',
+          description: 'D',
+          category: 'quality',
+        },
       ],
       summary: 'Multiple issues',
       verdict: 'request_changes',
